@@ -33,7 +33,7 @@ function createSchema() {
         },
 
         set: function(target, prop, value, receiver) {
-            let variable = Reflect.get(target, prop, receiver);
+            const variable = Reflect.get(target, prop, receiver);
             if (variable === undefined) {
                 let options;
                 if (typeof value == "function") {
@@ -52,8 +52,8 @@ function createSchema() {
                         value: value
                     }
                 }
-                const variable = new Variable(options);
-                Reflect.set(target, prop, variable, receiver);
+                const fresh = new Variable(options);
+                Reflect.set(target, prop, fresh, receiver);
             } else if (typeof value == "function") {
                 variable.formula = value;
             } else if (value instanceof PrimedFormula) {
