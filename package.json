@@ -1,0 +1,24 @@
+{
+  "name": "@patrickdlogan/kr",
+  "version": "1.0.0",
+  "description": "Extend the Javascript object system with spreadsheet-like properties",
+  "type": "module",
+  "main": "kr.mjs",
+  "scripts": {
+    "test": "node tests/kr_test.js"
+  },
+  "keywords": [
+    "dataflow",
+    "constraints",
+    "spreadsheet"
+  ],
+  "author": "Patrick Logan",
+  "license": "ISC",
+  "devDependencies": {
+    "jsdoc": "^3.6.6",
+    "tape": "^5.0.1"
+  },
+  "dependencies": {
+    "@patrickdlogan/cstr": "^1.0.2"
+  }
+}
