@@ -21,6 +21,13 @@ function getMetadata(schema) {
     return meta;
 }
 
+function metaSetTarget(schema, target) {
+    const meta = getMetadata(schema);
+    if (meta.target === undefined) {
+        meta.target = target;
+    }
+}
+
 /**
  *
  * @return {Object}
@@ -41,12 +48,14 @@ function createSchema() {
                         formula: value,
                         thisFormula: receiver
                     };
+                    metaSetTarget(receiver, target);
                 } else if (value instanceof PrimedFormula) {
                     options = {
                         value: value.value,
                         formula: value.formula,
                         thisFormula: receiver
                     }
+                    metaSetTarget(receiver, target);
                 } else {
                     options = {
                         value: value
@@ -56,16 +65,12 @@ function createSchema() {
                 Reflect.set(target, prop, fresh, receiver);
             } else if (typeof value == "function") {
                 variable.formula = value;
+                metaSetTarget(receiver, target);
             } else if (value instanceof PrimedFormula) {
                 variable.formula = value.formula;
+                metaSetTarget(receiver, target);
             } else {
                 variable.value = value;
-            }
-            if (typeof value == "function" || value instanceof PrimedFormula) {
-                const meta = getMetadata(receiver);
-                if (meta.target === undefined) {
-                    meta.target = target;
-                }
             }
             return true;
         }
